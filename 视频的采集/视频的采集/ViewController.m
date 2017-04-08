@@ -10,6 +10,7 @@
 #import "VideoCapture.h"
 #import <AVFoundation/AVFoundation.h>
 
+
 @interface ViewController ()
 
 @property (nonatomic , strong) VideoCapture *videoCapture;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0423EAE01E98E2F70006B6B8 /* H264Encoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423EADF1E98E2F70006B6B8 /* H264Encoder.m */; };
 		04C19CAC1E988A4800AA3F60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C19CAB1E988A4800AA3F60 /* main.m */; };
 		04C19CAF1E988A4800AA3F60 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C19CAE1E988A4800AA3F60 /* AppDelegate.m */; };
 		04C19CB21E988A4800AA3F60 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C19CB11E988A4800AA3F60 /* ViewController.m */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0423EADE1E98E2F70006B6B8 /* H264Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264Encoder.h; sourceTree = "<group>"; };
+		0423EADF1E98E2F70006B6B8 /* H264Encoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264Encoder.m; sourceTree = "<group>"; };
 		04C19CA71E988A4800AA3F60 /* 视频的采集.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "视频的采集.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C19CAB1E988A4800AA3F60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04C19CAD1E988A4800AA3F60 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 			children = (
 				04C19CC21E98C66400AA3F60 /* VideoCapture.h */,
 				04C19CC31E98C66400AA3F60 /* VideoCapture.m */,
+				0423EADE1E98E2F70006B6B8 /* H264Encoder.h */,
+				0423EADF1E98E2F70006B6B8 /* H264Encoder.m */,
 			);
 			path = WBEncoder;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 				04C19CB21E988A4800AA3F60 /* ViewController.m in Sources */,
 				04C19CAF1E988A4800AA3F60 /* AppDelegate.m in Sources */,
 				04C19CAC1E988A4800AA3F60 /* main.m in Sources */,
+				0423EAE01E98E2F70006B6B8 /* H264Encoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +323,7 @@
 				04C19CC01E988A4800AA3F60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
