@@ -11,9 +11,11 @@
 
 @interface H264Encoder : NSObject
 
-/** 准备编码*/
+/** 准备编码相关信息*/
 - (void)prepareEncodeWithWidth:(int)width height:(int)height;
-/** 进行编码*/
+/** 对采集的数据进行编码*/
 - (void)encodeFrame:(CMSampleBufferRef)sampleBuffer;
+/** 结束编码*/
+- (void)endEncoder;
 
 @end

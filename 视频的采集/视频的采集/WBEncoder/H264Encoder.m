@@ -16,12 +16,22 @@
 
 @property (nonatomic , assign) int frameIndex;
 
+/** 写入文件的对象*/
+@property (nonatomic , strong) NSFileHandle *fileHandle;
+
 @end
 
 @implementation H264Encoder
 
 /** 准备编码*/
 - (void)prepareEncodeWithWidth:(int)width height:(int)height{
+    
+    // 写入文件的路径
+    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"wb.H264"];
+   //在使用NSFileHandle的时候，必须要先创建路径，否则filehandle = nil
+   [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
+    self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];
+    
     
     // 默认是第0帧
     self.frameIndex = 0;
@@ -75,6 +85,9 @@ void didCompressionOutputCallback(
                                   CM_NULLABLE CMSampleBufferRef sampleBuffer ){
     
     //    NSLog(@"编码出一帧");
+    
+    H264Encoder *encoder = (__bridge H264Encoder *)(outputCallbackRefCon);
+    
     //1. 判断该帧否是关键帧
     CFArrayRef attachments = CMSampleBufferGetSampleAttachmentsArray(sampleBuffer, true);
     CFDictionaryRef dict = CFArrayGetValueAtIndex(attachments, 0);
@@ -102,6 +115,8 @@ void didCompressionOutputCallback(
         NSData *ppsData = [[NSData alloc] initWithBytes:ppsOutPointer length:ppsOutSize];
         
         //2.5 写入文件
+        [encoder writeData:spsData];
+        [encoder writeData:ppsData];
     
     }
     
@@ -123,14 +138,30 @@ void didCompressionOutputCallback(
                , dataPointer+bufferOffset, h264HeaderLength);
         
         //h264获取的是大端模式,iOS模式是小端模式
-        CFSwapInt32BigToHost(NALULength);
+      NALULength =  CFSwapInt32BigToHost(NALULength);
         //3.5 从dataPointer中获取NSData
         NSData *data = [NSData dataWithBytes:dataPointer+bufferOffset+h264HeaderLength length:NALULength];
+        [encoder writeData:data];
         
         bufferOffset += NALULength + h264HeaderLength;
-        
-    
     }
 }
 
+/** 写入文件*/
+- (void)writeData:(NSData *)data{
+
+    //先写入startCoder
+    const char bytes[] = "\x00\x00\x00\x01";
+    NSData *headerData = [NSData dataWithBytes:bytes length:sizeof(bytes) - 1];
+    [self.fileHandle writeData:headerData];
+    [self.fileHandle writeData:data];
+    
+}
+/** 结束编码*/
+- (void)endEncoder{
+
+    VTCompressionSessionInvalidate(self.compressionSession);
+    CFRelease(self.compressionSession);
+
+}
 @end
